@@ -8,7 +8,7 @@ namespace Platformerengine.res.code.logic
 {
     class Size
     {
-        Size(double width, double height)
+        public Size(double width, double height)
         {
             Width = width;
             Height = height;
