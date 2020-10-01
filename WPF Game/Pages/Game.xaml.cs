@@ -14,9 +14,6 @@ using System.Windows.Threading;
 
 namespace WPF_Game.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для Game.xaml
-    /// </summary>
     public partial class Game : Page
     {
         public static Game GetInstance()

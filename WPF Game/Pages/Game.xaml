@@ -6,13 +6,9 @@
       xmlns:local="clr-namespace:WPF_Game.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Game" KeyDown="KeyInputDown" KeyUp="KeyInputUp">
+      Title="Game">
 
-    <!--<Grid>-->
-    <!--<Viewbox>-->
-    <Canvas x:Name="MainCanvas" MouseLeftButtonDown="MouseInputDown" MouseLeftButtonUp="MouseInputUp" Focusable="True" Background="White">
+    <Canvas x:Name="MainCanvas" Focusable="True" Background="White">
         <Label x:Name="MessageLabel" Content="Message" Canvas.Bottom="20" Canvas.Left="50"/>
     </Canvas>
-    <!--</Viewbox>-->
-    <!--</Grid>-->
 </Page>
