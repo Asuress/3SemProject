@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF_Game.Pages;
 
 namespace WPF_Game
 {
@@ -23,6 +24,13 @@ namespace WPF_Game
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void ButtonClicked(object sender, RoutedEventArgs e)
+        {
+            Game gm = Game.GetInstance();
+            Content = gm;
+            gm.Start();
         }
     }
 }
