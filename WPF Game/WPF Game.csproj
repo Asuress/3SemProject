@@ -7,4 +7,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+<<<<<<< Updated upstream
+=======
+  <ItemGroup>
+    <Folder Include="Source\Graphics\" />
+    <Folder Include="Source\Physics\" />
+  </ItemGroup>
+
+>>>>>>> Stashed changes
 </Project>
