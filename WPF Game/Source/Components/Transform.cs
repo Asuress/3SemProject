@@ -17,8 +17,7 @@ namespace WPF_Game.Source.Components
         {
 
         }
-
         public Point Position { get; set; }
-        public Size Size { get; }
+        public Size Size { get; set; }
     }
 }
