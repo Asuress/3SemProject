@@ -4,35 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Platformerengine.res.code.logic
+namespace WPF_Game.Source.Logic
 {
-    class Size
+    public class Size
     {
-        public Size(double width, double height)
+        public Size(double width = 0, double height = 0)
         {
             Width = width;
             Height = height;
         }
-        double Width
+        private double _Width;
+        private double _Height;
+        public double Width
         {
-            get { return Width; }
+            get { return _Width; }
             set
             {
-                if (value < 0)
-                    Width = 0;
-                else
-                    Width = value;
+                _Width = value < 0 ? 0 : value;
             }
         }
-        double Height
+        public double Height
         {
-            get { return Width; }
+            get { return _Height; }
             set
             {
-                if (value < 0)
-                    Height = 0;
-                else
-                    Height = value;
+                _Height = value < 0 ? 0 : value;
             }
         }
 

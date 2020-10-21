@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPF_Game.Source.Main;
@@ -49,10 +50,6 @@ namespace WPF_Game.Pages
             _Scene.AddGameObject(Player);
             EnemyController = new EnemyControl(Player, _Scene);
             EnemyController.StartSpawn();
-        }
-        public void Stop()
-        {
-
         }
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {

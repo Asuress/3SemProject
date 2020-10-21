@@ -7,9 +7,9 @@ using System.Windows;
 using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 
-namespace Platformerengine.res.code.logic
+namespace WPF_Game.Source.Logic
 {
-    class Vector2
+    public class Vector2
     {
         public Vector2(double x = 0, double y = 0)
         {

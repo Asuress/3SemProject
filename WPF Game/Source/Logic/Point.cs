@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Platformerengine.res.code.logic
+namespace WPF_Game.Source.Logic
 {
-    class Point
+    public class Point
     {
         public class PointChangedEventArgs
         {
