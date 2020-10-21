@@ -45,14 +45,10 @@ namespace Platformerengine.res.code.logic
             return new Vector2(size.Width, size.Height);
         }
         public bool Equals(Size size1, Size size2) => size1.Width == size2.Width && size1.Height == size2.Height;
-        public bool Equals(Size size) => size.Width == Width && size.Height == Height;
-        public override bool Equals(object o)
+        public bool Equals(Size size) => size?.Width == Width && size?.Height == Height;
+        public override bool Equals(object obj)
         {
-            if (o is Size)
-            {
-                return Equals(this, o);
-            }
-            return false;
+            return base.Equals(obj);
         }
         public override int GetHashCode()
         {

@@ -7,9 +7,4 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Source\Graphics\" />
-    <Folder Include="Source\Physics\" />
-  </ItemGroup>
-
 </Project>
