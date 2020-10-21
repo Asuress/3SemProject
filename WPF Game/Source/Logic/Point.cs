@@ -8,17 +8,62 @@ namespace Platformerengine.res.code.logic
 {
     class Point
     {
-        private double X { get; set; }
-        private double Y { get; set; }
+        public class PointChangedEventArgs
+        {
+            public PointChangedEventArgs(double oldX, double oldY, double newX, double newY) 
+            {
+                OldX = oldX;
+                OldY = oldY;
+                NewX = newX;
+                NewY = newY;
+            }
+            public double OldX { get; private set; }
+            public double OldY { get; private set; }
+            public double NewX { get; private set; }
+            public double NewY { get; private set; }
+        }
+
+        public delegate void PointChangedHandler(object sender, PointChangedEventArgs e);
+
+        public event PointChangedHandler PointChanged = delegate { };
+
         public Point(double _x = 0, double _y = 0)
         {
-            X = _x;
-            Y = _y;
+            _X = _x;
+            _Y = _y;
         }
         public Point(Point _p)
         {
             X = _p.X;
             Y = _p.Y;
+        }
+        private double _X;
+        public double X
+        {
+            get
+            {
+                return _X;
+            }
+            set
+            {
+                var oldPoint = this;
+                _X = value;
+                PointChanged(this, new PointChangedEventArgs(oldPoint.X, oldPoint.Y, X, Y));
+            }
+        }
+        private double _Y;
+        public double Y
+        {
+            get
+            {
+                return _Y;
+            }
+            set
+            {
+                var oldPoint = this;
+                _Y = value;
+                PointChanged(this, new PointChangedEventArgs(oldPoint.X, oldPoint.Y, X, Y));
+            }
         }
         public override bool Equals(object any)
         {
@@ -58,7 +103,7 @@ namespace Platformerengine.res.code.logic
         {
             return new Point(p1.X - p2.X, p1.Y - p2.Y);
         }
-        public static bool operator !=(Point p1, Point p2) => !(p1.X == p1.X && p1.Y == p2.Y);
-        public static bool operator ==(Point p1, Point p2) => (p1.X == p2.X && p1.Y == p2.Y);
+        public static bool operator !=(Point p1, Point p2) => !(p1?.X == p2?.X && p1?.Y == p2?.Y);
+        public static bool operator ==(Point p1, Point p2) => (p1?.X == p2?.X && p1?.Y == p2?.Y);
     }
 }
