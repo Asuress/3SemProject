@@ -1,69 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Security.RightsManagement;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows.Threading;
 using WPF_Game.Source.Components;
-using WPF_Game.Source.Graphics;
+using WPF_Game.Source.Main;
 using WPF_Game.Source.Physics;
+using Transform = WPF_Game.Source.Components.Transform;
 
 namespace WPF_Game.Source.Logic
 {
-    class GameObject
+    public class GameObject : Game
     {
-        public GameObject(Shape shape, ImageBrush imgBrush, Point position, Size size, string tag = null)
+        public GameObject(Shape shape, ImageBrush img, Point pos, Size size, string tag = "")
         {
             Shape = shape;
-            ImageBrush = imgBrush;
-            Components.Transform.PositionChanged += Transform_PositionChanged;
-            Components.Transform.SizeChanged += Transform_SizeChanged;
-            Transform = new Components.Transform(position, size);
+            Transform = new Transform();
+            Transform.PositionChanged += Transform_PositionChanged;
+            Transform.SizeChanged += Transform_SizeChanged;
+            Transform.Position = pos;
+            Transform.Size = size;
+            ImageBrush = img;
             Shape.Fill = ImageBrush;
-            Tag = tag;
-            CompositionTarget.Rendering += GameLoop;
+            Tag = tag ?? "";
         }
-        public Shape Shape { get; private set; }
+        public Shape Shape { get; set; }
         public ImageBrush ImageBrush { get; set; }
         public string Tag { get; set; }
-        public Components.Transform Transform { get; }
-        private void GameLoop(object sender, EventArgs e)
-        {
-            Update();
-            LateUpdate();
-        }
-        protected virtual void Update() 
-        { 
-
-        }
-        protected virtual void LateUpdate() 
+        public Transform Transform { get; set; }
+        public BoxCollider Collider { get; set; }
+        protected override void Update()
         {
 
         }
-        public bool IntersectWith(GameObject gameObject)
+        protected override void LateUpdate() 
         {
-            if(Math.Abs(Transform.Position.X - gameObject.Transform.Position.X) <= 
-               Math.Max(Transform.Size.Width, gameObject.Transform.Size.Width) &&
-               Math.Abs(Transform.Position.Y - gameObject.Transform.Position.Y) <= 
-               Math.Max(Transform.Size.Height, gameObject.Transform.Size.Height))
+
+        }
+        protected void Transform_SizeChanged(object sender, Transform.SizeChangedEventArgs e)
+        {
+            if (e.NewSize != null)
             {
-                return true;
+                Shape.Width = e.NewSize.Width;
+                Shape.Height = e.NewSize.Height;
             }
-            return false;
         }
-        private void Transform_SizeChanged(object sender, Components.SizeChangedEventArgs e)
+        protected void Transform_PositionChanged(object sender, Transform.PositionChangedEventArgs e)
         {
-            Shape.Width = e.NewSize.Width;
-            Shape.Height = e.NewSize.Height;
-        }
-        private void Transform_PositionChanged(object sender, PositionChangedEventArgs e)
-        {
-            Canvas.SetLeft(Shape, e.NewPosition.X);
-            Canvas.SetTop(Shape, e.NewPosition.Y);
+            if (e.NewPosition != null)
+            {
+                Canvas.SetLeft(Shape, e.NewPosition.X);
+                Canvas.SetTop(Shape, e.NewPosition.Y);
+            }
         }
     }
 }

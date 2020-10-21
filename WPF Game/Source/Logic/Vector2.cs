@@ -15,28 +15,25 @@ namespace WPF_Game.Source.Logic
         {
             X = x;
             Y = y;
+            _Length = Math.Sqrt(X * X + Y * Y);
         }
 
         public double X { get; private set; }
         public double Y { get; private set; }
+        private double _Length;
         public double Length
         {
             get
             {
-                if (Length == 0)
-                    Length = Math.Sqrt(X * X + Y * Y);
-                return Length;
-            }
-            private set
-            {
-                Length = value;
+                _Length = Math.Sqrt(X * X + Y * Y);
+                return _Length;
             }
         }
 
         public void Normalize()
         {
-            X /= Length;
-            Y /= Length;
+            X /= _Length;
+            Y /= _Length;
         }
         public Vector2 GetNormalVector()
         {

@@ -9,10 +9,10 @@
       Title="Game" SizeChanged="Page_SizeChanged">
 
     <Viewbox x:Name="MainViewbox">
-        <Canvas x:Name="MainCanvas"
+        <!--<Canvas x:Name="MainCanvas"
                 Width="800" Height="450" ClipToBounds="True" Focusable="True" 
                 Background="White" MaxWidth="1920" MaxHeight="1080">
             <Label x:Name="TimeLabel" Content="Time" Margin="5"/>
-        </Canvas>
+        </Canvas>-->
     </Viewbox>
 </Page>
