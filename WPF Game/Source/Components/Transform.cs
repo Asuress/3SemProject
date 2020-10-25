@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System;
+using System.Windows.Media;
 using WPF_Game.Source.Logic;
 
 namespace WPF_Game.Source.Components
