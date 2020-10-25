@@ -10,7 +10,7 @@ using Transform = WPF_Game.Source.Components.Transform;
 
 namespace WPF_Game.Source.Logic
 {
-    public class GameObject : Game
+    public class GameObject : GameManager
     {
         public GameObject(Shape shape, ImageBrush img, Point pos, Size size, string tag = "")
         {
@@ -33,7 +33,7 @@ namespace WPF_Game.Source.Logic
         {
 
         }
-        protected override void LateUpdate() 
+        protected override void LateUpdate()
         {
 
         }
