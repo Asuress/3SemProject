@@ -13,23 +13,23 @@ namespace WPF_Game.Source.Physics
         {
             //Parent = parent;
             Size = parent.Transform.Size;
-            _Scene = scene;
+            this.scene = scene;
         }
         public BoxCollider(GameObject parent, Scene scene, Size size) : base(parent)
         {
             Size = size;
-            _Scene = scene;
+            this.scene = scene;
         }
         
         public Size Size { get; set; }
 
-        bool IsStay = false;
-        Scene _Scene;
+        bool isStay = false;
+        Scene scene;
 
         protected override void EarlyUpdate()
         {
             LinkedList<GameObject> intersectsWith = new LinkedList<GameObject>();
-            foreach (var go in _Scene.GameObjects)
+            foreach (var go in scene.GameObjects)
             {
                 Sides side;
                 if (IntersectWith(go, out side) && go != parent)
@@ -37,13 +37,13 @@ namespace WPF_Game.Source.Physics
                     intersectsWith.AddLast(go);
                     foreach (var intersect in intersectsWith)
                     {
-                        if (IsStay && intersect == go)
+                        if (isStay && intersect == go)
                         {
                             InvokeOnCollisionStay(go.GetComponent<Collider>(), side);
                         }
                         else
                         {
-                            IsStay = true;
+                            isStay = true;
                             InvokeOnCollisionEnter(go.GetComponent<Collider>(), side);
                         }
                     }
@@ -52,9 +52,9 @@ namespace WPF_Game.Source.Physics
                 {
                     foreach (var intersect in intersectsWith)
                     {
-                        if (IsStay && intersect == go)
+                        if (isStay && intersect == go)
                         {
-                            IsStay = false;
+                            isStay = false;
                             InvokeOnCollisionExit(go.GetComponent<Collider>(), side);
                         }
                     }
