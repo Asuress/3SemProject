@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WPF_Game.Source.Components
 {
-    interface IComponent
+    public interface IComponent
     {
     }
 }
