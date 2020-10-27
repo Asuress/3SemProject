@@ -11,6 +11,7 @@ using Point = WPF_Game.Source.Logic.Point;
 using Size = WPF_Game.Source.Logic.Size;
 using WPF_Game.Source.Physics;
 using WPF_Game.Source.FileManagers;
+using System.Windows.Input;
 
 namespace WPF_Game.Pages
 {
@@ -29,13 +30,20 @@ namespace WPF_Game.Pages
         private Game()
         {
             InitializeComponent();
-            _Scene = Scene.GetInstance();
-            MainViewbox.Child = _Scene;
+            scene = Scene.GetInstance();
+            MainViewbox.Child = scene;
+            scene.Loaded += Scene_Loaded;
+            keyLabel = new Label() { Content = "Last Pressed Key: " + key };
+            scene.Children.Add(keyLabel);
         }
-        Scene _Scene;
-        EnemyControl EnemyController;
-        GameObject Player;
+
+        Label keyLabel;
+        Key key;
+        Scene scene;
+        EnemyControl enemyController;
+        GameObject player;
         SettingsManager settingsManager = SettingsManager.GetSettingsManager();
+
         public void Start()
         {
             settingsManager.ReadSettings();
@@ -44,18 +52,31 @@ namespace WPF_Game.Pages
             Point pt = new Point(Application.Current.MainWindow.ActualWidth / 2, Application.Current.MainWindow.ActualHeight / 2);
             Size sz = new Size(20, 20);
 
-            Player = new GameObject(playerEllipse, playerIMG, pt, sz);
-            Player.Collider = new BoxCollider(Player, _Scene);
+            player = new GameObject(playerEllipse, playerIMG, pt, sz);
 
-            _Scene.Background = Brushes.DarkOliveGreen;
-            _Scene.AddGameObject(Player);
-            EnemyController = new EnemyControl(Player, _Scene);
-            EnemyController.StartSpawn();
+            player.AddComponent(new BoxCollider(player, scene));
+            player.AddComponent(new Controller(player, double.Parse(settingsManager.Settings["PlayerSpeed"])));
+
+            scene.Background = Brushes.DarkOliveGreen;
+            scene.AddGameObject(player);
+            enemyController = new EnemyControl(player, scene);
+            enemyController.StartSpawn();
+        }
+
+        public void Stop()
+        {
+
+        }
+
+        private void Scene_Loaded(object sender, RoutedEventArgs e)
+        {
+            scene.Focusable = true;
+            Keyboard.Focus(scene);
         }
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            _Scene.Width = e.NewSize.Width;
-            _Scene.Height = e.NewSize.Height;
+            scene.Width = e.NewSize.Width;
+            scene.Height = e.NewSize.Height;
         }
     }
 }
