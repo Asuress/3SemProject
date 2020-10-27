@@ -8,7 +8,7 @@ using WPF_Game.Source.Logic;
 
 namespace WPF_Game.Source.Main
 {
-    public class EnemyControl : Game
+    public class EnemyControl : GameManager
     {
         public EnemyControl(GameObject target, Scene scene)
         {
@@ -46,10 +46,7 @@ namespace WPF_Game.Source.Main
                 
             }
         }
-        protected override void LateUpdate()
-        {
-
-        }
+        
         public void StartSpawn()
         {
             CanSpawn = true;
