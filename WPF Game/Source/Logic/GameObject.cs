@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -22,21 +24,38 @@ namespace WPF_Game.Source.Logic
             Transform.Size = size;
             ImageBrush = img;
             Shape.Fill = ImageBrush;
-            Tag = tag ?? "";
+            Tag = tag;
+            components = new LinkedList<IComponent>();
         }
+        public string Tag { get; set; }
+        LinkedList<IComponent> components;
         public Shape Shape { get; set; }
         public ImageBrush ImageBrush { get; set; }
-        public string Tag { get; set; }
         public Transform Transform { get; set; }
-        public BoxCollider Collider { get; set; }
-        protected override void Update()
+        public T GetComponent<T>() where T: class
         {
-
+            foreach (var component in components)
+            {
+                if(component is T)
+                {
+                    return (T)component;
+                }
+            }
+            return null;
         }
-        protected override void LateUpdate()
+        public bool AddComponent(IComponent component)
         {
-
+            foreach (var cmp in components)
+            {
+                if(cmp.GetType() == component.GetType())
+                {
+                    return false;
+                }
+            }
+            components.AddLast(component);
+            return true;
         }
+
         protected void Transform_SizeChanged(object sender, Transform.SizeChangedEventArgs e)
         {
             if (e.NewSize != null)
