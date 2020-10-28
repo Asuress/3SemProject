@@ -11,7 +11,6 @@ namespace WPF_Game.Source.Physics
 
         public BoxCollider(GameObject parent, Scene scene) : base(parent)
         {
-            //Parent = parent;
             Size = parent.Transform.Size;
             this.scene = scene;
         }
