@@ -12,6 +12,7 @@ using Size = WPF_Game.Source.Logic.Size;
 using WPF_Game.Source.Physics;
 using WPF_Game.Source.FileManagers;
 using System.Windows.Input;
+using WPF_Game.Source.Components;
 
 namespace WPF_Game.Pages
 {
@@ -33,12 +34,8 @@ namespace WPF_Game.Pages
             scene = Scene.GetInstance();
             MainViewbox.Child = scene;
             scene.Loaded += Scene_Loaded;
-            keyLabel = new Label() { Content = "Last Pressed Key: " + key };
-            scene.Children.Add(keyLabel);
         }
 
-        Label keyLabel;
-        Key key;
         Scene scene;
         EnemyControl enemyController;
         GameObject player;
@@ -55,12 +52,14 @@ namespace WPF_Game.Pages
             player = new GameObject(playerEllipse, playerIMG, pt, sz);
 
             player.AddComponent(new BoxCollider(player, scene));
+            player.AddComponent(new Rigidbody(player));
             player.AddComponent(new Controller(player, double.Parse(settingsManager.Settings["PlayerSpeed"])));
 
             scene.Background = Brushes.DarkOliveGreen;
             scene.AddGameObject(player);
             enemyController = new EnemyControl(player, scene);
             enemyController.StartSpawn();
+
         }
 
         public void Stop()
