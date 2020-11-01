@@ -17,8 +17,8 @@ namespace WPF_Game.Source.Logic
         public GameObject(Shape shape, ImageBrush img, Point pos, Size size, string tag = "")
         {
             Shape = shape;
-            Transform = new Transform();
-            Transform.PositionChanged += Transform_PositionChanged;
+            Transform = new Transform(this);
+            //Transform.PositionChanged += Transform_PositionChanged;
             Transform.SizeChanged += Transform_SizeChanged;
             Transform.Position = pos;
             Transform.Size = size;
@@ -64,13 +64,13 @@ namespace WPF_Game.Source.Logic
                 Shape.Height = e.NewSize.Height;
             }
         }
-        protected void Transform_PositionChanged(object sender, Transform.PositionChangedEventArgs e)
-        {
-            if (e.NewPosition != null)
-            {
-                Canvas.SetLeft(Shape, e.NewPosition.X);
-                Canvas.SetTop(Shape, e.NewPosition.Y);
-            }
-        }
+        //protected void Transform_PositionChanged(object sender, Transform.PositionChangedEventArgs e)
+        //{
+        //    if (e.NewPosition != null)
+        //    {
+        //        Canvas.SetLeft(Shape, e.NewPosition.X);
+        //        Canvas.SetTop(Shape, e.NewPosition.Y);
+        //    }
+        //}
     }
 }
