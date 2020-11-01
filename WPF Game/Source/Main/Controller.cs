@@ -1,9 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 using WPF_Game.Source.Components;
 using WPF_Game.Source.Graphics;
 using WPF_Game.Source.Logic;
 using Point = WPF_Game.Source.Logic.Point;
+using Vector = System.Windows.Vector;
+
 
 namespace WPF_Game.Source.Main
 {
@@ -13,8 +16,10 @@ namespace WPF_Game.Source.Main
         {
             parent = _parent;
             speed = _speed;
+            rb = parent.GetComponent<Rigidbody>();
         }
 
+        Rigidbody rb;
         double speed;
         GameObject parent;
 
@@ -22,23 +27,23 @@ namespace WPF_Game.Source.Main
         {
             if (Keyboard.IsKeyDown(Key.W))
             {
-                parent.Transform.Position += new Point(0, -1 * speed);
+                rb.AddForce(new Vector(0, -speed), Rigidbody.Mode.Force);
             }
             if (Keyboard.IsKeyDown(Key.S))
             {
-                parent.Transform.Position += new Point(0, speed);
+                rb.AddForce(new Vector(0, speed), Rigidbody.Mode.Force);
             }
             if (Keyboard.IsKeyDown(Key.A))
             {
-                parent.Transform.Position += new Point(-1 * speed, 0);
+                rb.AddForce(new Vector(-speed, 0), Rigidbody.Mode.Force);
             }
             if (Keyboard.IsKeyDown(Key.D))
             {
-                parent.Transform.Position += new Point(speed, 0);
+                rb.AddForce(new Vector(speed, 0), Rigidbody.Mode.Force);
             }
             if(Mouse.LeftButton == MouseButtonState.Pressed)
             {
-                MessageBox.Show("LMouse pressed");
+                
             }
         }
     }
