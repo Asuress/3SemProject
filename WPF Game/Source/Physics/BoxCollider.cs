@@ -30,54 +30,54 @@ namespace WPF_Game.Source.Physics
             LinkedList<GameObject> intersectsWith = new LinkedList<GameObject>();
             foreach (var go in scene.GameObjects)
             {
-                Sides side;
-                if (IntersectWith(go, out side) && go != parent)
+                System.Windows.Vector normal;
+                if (IntersectWith(go, out normal) && go != parent)
                 {
                     intersectsWith.AddLast(go);
                     foreach (var intersect in intersectsWith)
                     {
                         if (isStay && intersect == go)
                         {
-                            InvokeOnCollisionStay(go.GetComponent<Collider>(), side);
+                            InvokeOnCollisionStay(go.GetComponent<Collider>(), normal);
                         }
                         else
                         {
                             isStay = true;
-                            InvokeOnCollisionEnter(go.GetComponent<Collider>(), side);
+                            InvokeOnCollisionEnter(go.GetComponent<Collider>(), normal);
                         }
                     }
                 }
-                else if(!IntersectWith(go, out side) && go != parent)
+                else if(!IntersectWith(go, out normal) && go != parent)
                 {
                     foreach (var intersect in intersectsWith)
                     {
                         if (isStay && intersect == go)
                         {
                             isStay = false;
-                            InvokeOnCollisionExit(go.GetComponent<Collider>(), side);
+                            InvokeOnCollisionExit(go.GetComponent<Collider>(), normal);
                         }
                     }
                 }
             }
         }
 
-        private bool IntersectWith(GameObject gameObject, out Sides side)
+        private bool IntersectWith(GameObject gameObject, out System.Windows.Vector normal)
         {
             if (Math.Abs(parent.Transform.Position.X - gameObject.Transform.Position.X) <= (parent.Transform.Size.Width + gameObject.Transform.Size.Width) / 2 &&
                Math.Abs(parent.Transform.Position.Y - gameObject.Transform.Position.Y) <= (parent.Transform.Size.Height + gameObject.Transform.Size.Height) / 2)
             {
-                side = default;
+                normal = default;
                 if (parent.Transform.Position.X - gameObject.Transform.Position.X >= 0)
-                    side = Sides.West;
+                    normal = new System.Windows.Vector(-1, 0); //West
                 else if (parent.Transform.Position.X - gameObject.Transform.Position.X <= 0)
-                    side = Sides.East;
+                    normal = new System.Windows.Vector(1, 0); //East
                 else if (parent.Transform.Position.Y - gameObject.Transform.Position.Y > 0)
-                    side = Sides.North;
+                    normal = new System.Windows.Vector(0, 1); //North
                 else if (parent.Transform.Position.Y - gameObject.Transform.Position.Y > 0)
-                    side = Sides.South;
+                    normal = new System.Windows.Vector(0, -1); //South
                 return true;
             }
-            side = default;
+            normal = default;
             return false;
         }
     }
