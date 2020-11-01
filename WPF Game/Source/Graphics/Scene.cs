@@ -35,7 +35,15 @@ namespace WPF_Game.Source.Graphics
         {
             GameObjects?.AddLast(gameObject ?? throw new Exception("null game object"));
             Children.Add(gameObject.Shape);
+            gameObject.Transform.PositionChanged += RenderNewPosition;
         }
+
+        private void RenderNewPosition(GameObject sender, Components.Transform.PositionChangedEventArgs e)
+        {
+            SetLeft(sender?.Shape, e.NewPosition.X);
+            SetTop(sender?.Shape, e.NewPosition.Y);
+        }
+
         public void RemoveGameObject(GameObject go)
         {
             GameObjects.Remove(go);
