@@ -24,8 +24,8 @@ namespace WPF_Game.Source.Main
         private double _Speed = 0.7;
         protected override void Update()
         {
-            Vector2 direction = 
-                new Vector2(Target.Transform.Position.X - Transform.Position.X, Target.Transform.Position.Y - Transform.Position.Y);
+            Logic.Vector direction = 
+                new Logic.Vector(Target.Transform.Position.X - Transform.Position.X, Target.Transform.Position.Y - Transform.Position.Y);
             direction.Normalize();
             Point pos = Transform.Position;
             Transform.Position = new Point(pos.X + _Speed * direction.X, pos.Y + _Speed * direction.Y);
