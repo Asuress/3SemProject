@@ -32,13 +32,13 @@ namespace WPF_Game.Source.Logic
             }
         }
 
-        public Vector2 SizeToVector()
+        public Vector SizeToVector()
         {
-            return new Vector2(Width, Height);
+            return new Vector(Width, Height);
         }
-        public static Vector2 SizeToVector(Size size)
+        public static Vector SizeToVector(Size size)
         {
-            return new Vector2(size.Width, size.Height);
+            return new Vector(size.Width, size.Height);
         }
         public bool Equals(Size size1, Size size2) => size1.Width == size2.Width && size1.Height == size2.Height;
         public bool Equals(Size size) => size?.Width == Width && size?.Height == Height;

@@ -85,9 +85,9 @@ namespace WPF_Game.Source.Logic
             }
             return false;
         }
-        public Vector2 Subtract(Point end)
+        public Vector Subtract(Point end)
         {
-            return new Vector2(end.X - this.X, end.Y - this.Y);
+            return new Vector(end.X - this.X, end.Y - this.Y);
         }
         public void Move(double _x, double _y)
         {
