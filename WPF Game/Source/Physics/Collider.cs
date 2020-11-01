@@ -1,4 +1,5 @@
-﻿using WPF_Game.Source.Components;
+﻿using System.Windows;
+using WPF_Game.Source.Components;
 using WPF_Game.Source.Logic;
 using WPF_Game.Source.Main;
 
@@ -6,16 +7,16 @@ namespace WPF_Game.Source.Physics
 {
     public abstract class Collider : GameManager, IComponent
     {
-        public enum Sides { Default = 0, North, West, South, East }
+        //public enum Sides { Default = 0, North, West, South, East }
         public class ColliderEventArgs
         {
-            public ColliderEventArgs(Collider collider, Sides side) 
+            public ColliderEventArgs(Collider collider, System.Windows.Vector normal) 
             {
-                Side = side;
+                Normal = normal;
                 Collider = collider;
             }
             public Collider Collider { get; }
-            public Sides Side { get; }
+            public System.Windows.Vector Normal { get; }
         }
 
         public delegate void ColliderEventHandler(ColliderEventArgs colliderArgs);
@@ -30,18 +31,19 @@ namespace WPF_Game.Source.Physics
         }
 
         protected readonly GameObject parent;
+        public System.Windows.Vector NormalCollision { get; set; }
 
-        protected void InvokeOnCollisionEnter(Collider collider, Sides side)
+        protected void InvokeOnCollisionEnter(Collider collider, System.Windows.Vector normal)
         {
-            OnCollisionEnter(new ColliderEventArgs(collider, side));
+            OnCollisionEnter(new ColliderEventArgs(collider, normal));
         }
-        protected void InvokeOnCollisionStay(Collider collider, Sides side)
+        protected void InvokeOnCollisionStay(Collider collider, System.Windows.Vector normal)
         {
-            OnCollisionStay(new ColliderEventArgs(collider, side));
+            OnCollisionStay(new ColliderEventArgs(collider, normal));
         }
-        protected void InvokeOnCollisionExit(Collider collider, Sides side)
+        protected void InvokeOnCollisionExit(Collider collider, System.Windows.Vector normal)
         {
-            OnCollisionExit(new ColliderEventArgs(collider, side));
+            OnCollisionExit(new ColliderEventArgs(collider, normal));
         }
     }
 }
