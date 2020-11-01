@@ -7,8 +7,16 @@ namespace WPF_Game.Source.Main
     {
         public GameManager()
         {
-            CompositionTarget.Rendering += GameLoop;
+            gameTimer = new System.Windows.Threading.DispatcherTimer();
+            gameTimer.Tick += GameLoop;
+            gameTimer.Interval = TimeSpan.FromSeconds(1/FPS);
+            gameTimer.Start();
+            //CompositionTarget.Rendering += GameLoop;
         }
+
+        System.Windows.Threading.DispatcherTimer gameTimer;
+        public static double FPS = 100;
+
         protected void GameLoop(object sender, EventArgs e)
         {
             EarlyUpdate();
